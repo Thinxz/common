@@ -1,6 +1,7 @@
 package com.thinxz.fastdfs;
 
 import com.thinxz.common.exception.ThinxzException;
+import com.thinxz.fastdfs.config.FastDFSProperty;
 import com.thinxz.fastdfs.config.TrackerServerPool;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
@@ -27,6 +28,9 @@ public class FastDFS {
 
     @Autowired
     private TrackerServerPool trackerServerPool;
+
+    @Autowired
+    protected FastDFSProperty fastDFSProperty;
 
     /**
      * @param dataBytes 数据缓存

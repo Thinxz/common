@@ -289,11 +289,6 @@ public class FastDFSClient extends FastDFS {
      * @return 返回token [token=078d370098b03e9020b82c829c205e1f&ts=1508141521]
      */
     public FileResponse getToken(String filepath) {
-        // 文件服务器地址 file_server_addr
-        String fileServerAddr = "thinxz.cn:80";
-        // FastDFS秘钥 fastdfs.http_secret_key
-        String fastDFSHttpSecretKey = "xxxxxx";
-
         FileResponse responseData = new FileResponse();
         // 设置访文件的Http地址. 有时效性.
         // unix seconds
@@ -301,7 +296,7 @@ public class FastDFSClient extends FastDFS {
         // token
         String token = "null";
         try {
-            token = ProtoCommon.getToken(getFilename(filepath), ts, fastDFSHttpSecretKey);
+            token = ProtoCommon.getToken(getFilename(filepath), ts, fastDFSProperty.getHttpSecretKey());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -313,7 +308,7 @@ public class FastDFSClient extends FastDFS {
         // 设置访文件的Http地址. 有时效性.
         responseData.setToken(token);
         responseData.setTs(String.format("%s", ts));
-        responseData.setHttpUrl(fileServerAddr + "/" + filepath + "?" + responseData.getToken() + "&" + responseData.getTs());
+        responseData.setHttpUrl(String.format("%s/%s?token=%s&ts=%s", fastDFSProperty.getFileServer(), filepath, responseData.getToken(), responseData.getTs()));
         return responseData;
     }
 

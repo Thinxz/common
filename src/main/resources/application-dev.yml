@@ -1,4 +1,11 @@
 server:
   port: 8081
   servlet:
-    context-path: /thinxz-common
+    context-path: /
+
+fastdfs:
+  httpAntiStealToken: flase
+  httpSecretKey: "FastDFS1234567890"
+  httpTrackerHttpPort: 80
+  trackerServers: "thinxz.cn:22122"
+  fileServer: "localhost:8001"

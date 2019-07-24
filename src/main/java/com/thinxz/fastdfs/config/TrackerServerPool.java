@@ -5,7 +5,6 @@ import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
 import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -15,10 +14,9 @@ import java.util.Properties;
  *
  * @author thinxz
  */
-@Configuration
 public class TrackerServerPool extends AbsPooledExecute<TrackerServer> {
 
-    public TrackerServerPool() {
+    TrackerServerPool(FastDFSProperty fastDFSProperty) {
         try {
             // 加载配置
             Properties props = new Properties();
@@ -29,16 +27,16 @@ public class TrackerServerPool extends AbsPooledExecute<TrackerServer> {
             props.setProperty("fastdfs.network_timeout_in_seconds", "30");
             props.setProperty("fastdfs.charset", "UTF-8");
             // token 防盗链功能
-            props.setProperty("fastdfs.http_anti_steal_token", "false");
+            props.setProperty("fastdfs.http_anti_steal_token", fastDFSProperty.getHttpAntiStealToken());
             // 密钥
-            props.setProperty("fastdfs.http_secret_key", "FastDFS1234567890");
+            props.setProperty("fastdfs.http_secret_key", fastDFSProperty.getHttpSecretKey());
             // TrackerServer port
-            props.setProperty("fastdfs.http_tracker_http_port", "8001");
+            props.setProperty("fastdfs.http_tracker_http_port", fastDFSProperty.getHttpTrackerHttpPort());
             //
-            props.setProperty("fastdfs.tracker_servers", "thinxz.cn:22122");
-
+            props.setProperty("fastdfs.tracker_servers", fastDFSProperty.getTrackerServers());
             ClientGlobal.initByProperties(props);
-            if (borrowObject() == null) {
+
+            if (this.borrowObject() == null) {
                 throw new Exception();
             }
         } catch (IOException e) {
