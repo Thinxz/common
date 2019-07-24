@@ -4,12 +4,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.context.ConfigurableApplicationContext;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * 服务入口[提供公共服务调用, 及 JAR 包直接引用服务]
  *
  * @author thinxz
  */
+@EnableSwagger2
 @SpringBootApplication
 public class ThinApp {
     public static void main(String[] args) {
