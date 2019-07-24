@@ -132,6 +132,7 @@ public class FastDFS {
             }
 
             if (response != null) {
+                // 附件形式下载文件
                 os = response.getOutputStream();
 
                 // 设置响应头

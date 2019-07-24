@@ -67,6 +67,10 @@ public class FileResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String token;
 
-    private String tokenTs;
+    /**
+     * 时间戳
+     */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String ts;
 
 }

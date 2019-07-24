@@ -235,17 +235,7 @@ public class FastDFSClient extends FastDFS {
     }
 
     /**
-     * 下载文件 输出文件
-     *
-     * @param filepath 文件路径
-     * @param os       输出流
-     */
-    public void downloadFile(String filepath, OutputStream os) {
-        this.download(filepath, null, os, null);
-    }
-
-    /**
-     * 以附件形式下载文件 可以指定文件名称.
+     * 以附件形式下载文件 , 指定下载文件名称
      *
      * @param filepath 文件路径
      * @param filename 文件名称
@@ -253,6 +243,16 @@ public class FastDFSClient extends FastDFS {
      */
     public void downloadFile(String filepath, String filename, HttpServletResponse response) {
         this.download(filepath, filename, null, response);
+    }
+
+    /**
+     * 下载文件, 只写入输出流
+     *
+     * @param filepath 文件路径
+     * @param os       输出流
+     */
+    public void downloadFile(String filepath, OutputStream os) {
+        this.download(filepath, null, os, null);
     }
 
     /********* ********** ********* ********* ********** **********/
@@ -283,7 +283,7 @@ public class FastDFSClient extends FastDFS {
     }
 
     /**
-     * 获取访问服务器的token，拼接到地址后面
+     * 获取访问服务器TOKEN，拼接到地址后面 [根据密钥算法生成]
      *
      * @param filepath 文件路径
      * @return 返回token [token=078d370098b03e9020b82c829c205e1f&ts=1508141521]
@@ -311,9 +311,9 @@ public class FastDFSClient extends FastDFS {
         }
 
         // 设置访文件的Http地址. 有时效性.
-        responseData.setToken(String.format("token=%s", token));
-        responseData.setTokenTs(String.format("tokenTs=%s", ts));
-        responseData.setHttpUrl(fileServerAddr + "/" + filepath + "?" + responseData.getToken() + responseData.getTokenTs());
+        responseData.setToken(token);
+        responseData.setTs(String.format("%s", ts));
+        responseData.setHttpUrl(fileServerAddr + "/" + filepath + "?" + responseData.getToken() + "&" + responseData.getTs());
         return responseData;
     }
 
