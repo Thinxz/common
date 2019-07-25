@@ -27,7 +27,7 @@ public class FileUtil {
     public static boolean checkImage(String filename) {
         String fileType = FileType.checkValue(getFilenameSuffix(filename));
 
-        return fileType == null || "".equalsIgnoreCase(fileType);
+        return !(fileType == null || "".equalsIgnoreCase(fileType));
     }
 
     /**
@@ -38,7 +38,7 @@ public class FileUtil {
     public static boolean checkDoc(String filename) {
         String fileType = FileType.checkValue(getFilenameSuffix(filename));
 
-        return fileType == null || "".equalsIgnoreCase(fileType);
+        return !(fileType == null || "".equalsIgnoreCase(fileType));
     }
 
     /**
